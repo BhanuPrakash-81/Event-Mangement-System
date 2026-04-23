@@ -1,40 +1,85 @@
 package com.example.event_management_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "events")
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String date;
+    private String title;
+    
+    @Column(columnDefinition = "TEXT")
+    private String description;
+    
+    private String venue;
+    private String eventDate;
+    private int maxAttendees;
+    private int currentRegistrations;
     private String status;
+    
+    @Column(columnDefinition = "TEXT") // For Base64 photos
+    private String photo;
 
-    // Getters & Setters
+    public Event() {}
+
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getTitle() {
+        return title;
     }
 
-    public String getDate() {
-        return date;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getVenue() {
+        return venue;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public int getMaxAttendees() {
+        return maxAttendees;
+    }
+
+    public void setMaxAttendees(int maxAttendees) {
+        this.maxAttendees = maxAttendees;
+    }
+
+    public int getCurrentRegistrations() {
+        return currentRegistrations;
+    }
+
+    public void setCurrentRegistrations(int currentRegistrations) {
+        this.currentRegistrations = currentRegistrations;
     }
 
     public String getStatus() {
@@ -43,5 +88,13 @@ public class Event {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

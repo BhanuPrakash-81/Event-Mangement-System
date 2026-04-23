@@ -1,15 +1,8 @@
 package com.example.event_management_backend.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.example.event_management_backend.model.Event;
 import com.example.event_management_backend.service.EventService;
 
@@ -29,5 +22,15 @@ public class EventController {
     @GetMapping
     public List<Event> getAllEvents() {
         return service.getAllEvents();
+    }
+
+    @PutMapping("/{id}")
+    public Event updateEvent(@PathVariable Long id, @RequestBody Event event) {
+        return service.updateEvent(id, event);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEvent(@PathVariable Long id) {
+        service.deleteEvent(id);
     }
 }
