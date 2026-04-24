@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -28,6 +29,7 @@ public class SecurityConfig {
                 .requestMatchers("/events/**").permitAll() // Allow viewing events (we will refine this later)
                 .anyRequest().permitAll() // Keep it open for now while we test, then lock it down
             )
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .httpBasic(withDefaults()); // Allow basic auth for testing if needed
 
         return http.build();
