@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import com.example.event_management_backend.model.User;
 import com.example.event_management_backend.repository.UserRepository;
+import com.example.event_management_backend.repository.EventRepository;
 
 import org.springframework.core.annotation.Order;
 
