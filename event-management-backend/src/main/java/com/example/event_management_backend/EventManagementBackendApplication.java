@@ -22,25 +22,23 @@ public class EventManagementBackendApplication {
 	CommandLineRunner initDatabase(UserRepository userRepository, EventRepository eventRepository, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
 		return args -> {
 			// 1. Create Default Users
-			if (!userRepository.existsByEmail("admin@admin.com")) {
-				User admin = new User();
-				admin.setName("System Admin");
-				admin.setEmail("admin@admin.com");
-				admin.setPassword(passwordEncoder.encode("admin"));
-				admin.setRole("ADMIN");
-				userRepository.save(admin);
-				System.out.println("Default admin user created");
-			}
+			// 1. Create or Update Admin User (Ensures password is hashed)
+			User admin = userRepository.findByEmail("admin@admin.com").orElse(new User());
+			admin.setName("System Admin");
+			admin.setEmail("admin@admin.com");
+			admin.setPassword(passwordEncoder.encode("admin")); // Always hash the password
+			admin.setRole("ADMIN");
+			userRepository.save(admin);
+			System.out.println("Admin user synchronized with secure password");
 
-			if (!userRepository.existsByEmail("user@test.com")) {
-				User testUser = new User();
-				testUser.setName("Test User");
-				testUser.setEmail("user@test.com");
-				testUser.setPassword(passwordEncoder.encode("user"));
-				testUser.setRole("USER");
-				userRepository.save(testUser);
-				System.out.println("Default test user created");
-			}
+			// 2. Create or Update Test User
+			User testUser = userRepository.findByEmail("user@test.com").orElse(new User());
+			testUser.setName("Test User");
+			testUser.setEmail("user@test.com");
+			testUser.setPassword(passwordEncoder.encode("user"));
+			testUser.setRole("USER");
+			userRepository.save(testUser);
+			System.out.println("Test user synchronized with secure password");
 
 			// 2. Create Mock Events
 			if (eventRepository.count() == 0) {
