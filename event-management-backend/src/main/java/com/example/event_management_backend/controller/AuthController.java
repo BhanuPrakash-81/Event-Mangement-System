@@ -8,7 +8,7 @@ import com.example.event_management_backend.repository.UserRepository;
 
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

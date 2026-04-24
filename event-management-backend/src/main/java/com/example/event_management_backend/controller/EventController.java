@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.event_management_backend.model.Event;
 import com.example.event_management_backend.service.EventService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/events")
 public class EventController {
