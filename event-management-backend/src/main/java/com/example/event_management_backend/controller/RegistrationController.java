@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.event_management_backend.model.Registration;
 import com.example.event_management_backend.service.RegistrationService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 @RestController
 @RequestMapping("/registrations")
 public class RegistrationController {
