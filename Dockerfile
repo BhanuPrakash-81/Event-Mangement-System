@@ -14,7 +14,7 @@ FROM eclipse-temurin:21-jdk-jammy
 WORKDIR /app
 
 # Copy the generated JAR file from the build stage
-COPY --from=build /app/target/event-management-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/event-management-backend-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose port 8080 which Render maps beautifully internally
 EXPOSE 8080
