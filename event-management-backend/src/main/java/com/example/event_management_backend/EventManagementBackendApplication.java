@@ -16,26 +16,26 @@ public class EventManagementBackendApplication {
 	}
 
 	@Bean
-	CommandLineRunner initDatabase(UserRepository userRepository) {
+	CommandLineRunner initDatabase(UserRepository userRepository, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
 		return args -> {
 			if (!userRepository.existsByEmail("admin@admin.com")) {
 				User admin = new User();
 				admin.setName("System Admin");
 				admin.setEmail("admin@admin.com");
-				admin.setPassword("admin");
+				admin.setPassword(passwordEncoder.encode("admin"));
 				admin.setRole("ADMIN");
 				userRepository.save(admin);
-				System.out.println("Default admin user created: admin@admin.com / admin");
+				System.out.println("Default admin user created: admin@admin.com / admin (hashed)");
 			}
 
 			if (!userRepository.existsByEmail("user@test.com")) {
 				User testUser = new User();
 				testUser.setName("Test User");
 				testUser.setEmail("user@test.com");
-				testUser.setPassword("user");
+				testUser.setPassword(passwordEncoder.encode("user"));
 				testUser.setRole("USER");
 				userRepository.save(testUser);
-				System.out.println("Default test user created: user@test.com / user");
+				System.out.println("Default test user created: user@test.com / user (hashed)");
 			}
 		};
 	}
