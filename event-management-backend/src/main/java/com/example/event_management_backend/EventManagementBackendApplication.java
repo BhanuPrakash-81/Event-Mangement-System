@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import com.example.event_management_backend.model.User;
 import com.example.event_management_backend.repository.UserRepository;
 
+import org.springframework.core.annotation.Order;
+
 @SpringBootApplication
 public class EventManagementBackendApplication {
 
@@ -16,6 +18,7 @@ public class EventManagementBackendApplication {
 	}
 
 	@Bean
+	@Order(2)
 	CommandLineRunner initDatabase(UserRepository userRepository, EventRepository eventRepository, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
 		return args -> {
 			// 1. Create Default Users
