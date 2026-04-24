@@ -3,10 +3,10 @@ FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
 # Copy the pom.xml and source code into the container
-COPY pom.xml .
-COPY src ./src
+COPY event-management-backend/pom.xml .
+COPY event-management-backend/src ./src
 
-# Package the application using Maven (skips tests to speed up the deployment)
+# Package the application
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run the Application
