@@ -16,17 +16,11 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
-
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             return ResponseEntity.badRequest().body("Email is already in use!");
         }
-        
-        // Hash the password before saving
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         
         // Force role to USER for all signups via this endpoint
         user.setRole("USER"); 
@@ -40,8 +34,8 @@ public class AuthController {
         
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            // Use matches() to check the hashed password
-            if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            // Simple plaintext check
+            if (user.getPassword().equals(loginRequest.getPassword())) {
                 return ResponseEntity.ok(user);
             }
         }
